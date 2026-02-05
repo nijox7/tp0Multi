@@ -1,0 +1,86 @@
+# Compte-rendu TP1
+
+## F. Modélisation de l'architecture matérielle
+
+### F1.
+Voici les lignes de codes rajoutées/complétées:
+
+PibusSimpleMaster master("master", SEG_RAM_BASE, SEG_TTY_BASE);
+PibusSimpleRam    ram("ram", 1, segtable, ram_latency, loader);
+
+master.p_ck		(signal_ck);
+master.p_resetn	(signal_resetn);
+master.p_gnt	(signal_gnt_master);
+master.p_req	(signal_req_master)
+master.p_a		(signal_pi_a);
+master.p_opc	(signal_pi_opc);
+master.p_read	(signal_pi_read);
+master.p_lock	(signal_pi_lock);
+master.p_d		(signal_pi_d);
+master.p_ack	(signal_pi_ack);
+master.p_tout	(signal_pi_tout);
+	
+ram.p_ck		(signal_ck);
+ram.p_resetn	(signal_resetn);
+ram.p_sel		(signal_sel_ram);
+ram.p_a			(signal_pi_a);
+ram.p_read		(signal_pi_read);
+ram.p_opc		(signal_pi_opc);
+ram.p_ack		(signal_pi_ack);
+ram.p_d			(signal_pi_d);
+ram.p_tout		(signal_pi_tout);
+
+### F2.
+segtable.addSegment("seg_tty", SEG_TTY_BASE, 0X00000010, 1, false);
+
+### F3.
+
+### G1
+[carbou@machaut test]$ ./simul.x -NCYCLES 10000000
+ ____            _                  ____    _    ____ ____  
+/ ___| _   _ ___| |_ ___ _ __ ___  / ___|  / \  / ___/ ___| 
+\___ \| | | / __| __/ _ \ '_ ` _ \| |     / _ \ \___ \___ \ 
+ ___) | |_| \__ \ ||  __/ | | | | | |___ / ___ \ ___) |__) |
+|____/ \__, |___/\__\___|_| |_| |_|\____/_/   \_\____/____/ 
+       |___/                                                
+
+         Cycle Accurate System Simulator
+            ASIM/LIP6/UPMC
+            E-mail support:  Richard.Buchmann@asim.lip6.fr
+            Contributors : Richard Buchmann, Sami Taktak,
+                           Paul-Jerome Kingbo, Frederic P�trot,
+                           Nicolas Pouillon
+
+                           Last change : Oct 22 2019
+
+
+********************************************************
+******        tp1_multi                           ******
+********************************************************
+
+Trying to load a plain blob from file 'string_file' @ 0x10000000 flags: D
+Loading a plain blob from file 'string_file' @ 10000000, size: 14 bytes,  flags: 3
+
+Instanciation of PibuBcu : bcu
+    nb_master = 1
+    nb_target = 2
+    time_out  = 100
+
+Instanciation of PibusSimpleMaster : master
+    tty base address = 0xc0000000
+    ram base address = 0x10000000
+
+Instanciation of PibusSimpleRam : ram
+    latency = 2
+    segment seg_ram | base = 0x10000000 | size = 0x10
+
+Instanciation of PibusMultiTty : tty
+    ntty = 1
+    segment seg_tty | base = 0xc0000000 | size = 0x10
+
+Loading at 0x10000000 size 0x10: string_file 
+[carbou@machaut test]$ 
+
+=> 8 secondes
+
+### G2
