@@ -35,6 +35,9 @@ segtable.addSegment("seg_tty", SEG_TTY_BASE, 0X00000010, 1, false);
 
 ### F3.
 
+
+## G. Simulation
+
 ### G1
 [carbou@machaut test]$ ./simul.x -NCYCLES 10000000
  ____            _                  ____    _    ____ ____  
@@ -81,6 +84,7 @@ Instanciation of PibusMultiTty : tty
 Loading at 0x10000000 size 0x10: string_file 
 [carbou@machaut test]$ 
 
-=> 8 secondes
+On mesure un temps de simulation d'environ 8 secondes.
+On a donc 10 000 000 / 8 = 1 250 000 cycles par secondes.
 
 ### G2
