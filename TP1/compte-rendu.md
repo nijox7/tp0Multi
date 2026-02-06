@@ -39,6 +39,10 @@ segtable.addSegment("seg_tty", SEG_TTY_BASE, 0X00000010, 1, false);
 ## G. Simulation
 
 ### G1
+On mesure un temps de simulation d'environ 8 secondes.
+On a donc 10 000 000 / 8 = 1 250 000 cycles par secondes.
+Voici la trace de l'exécution:
+
 [carbou@machaut test]$ ./simul.x -NCYCLES 10000000
  ____            _                  ____    _    ____ ____  
 / ___| _   _ ___| |_ ___ _ __ ___  / ___|  / \  / ___/ ___| 
@@ -84,8 +88,14 @@ Instanciation of PibusMultiTty : tty
 Loading at 0x10000000 size 0x10: string_file 
 [carbou@machaut test]$ 
 
-On mesure un temps de simulation d'environ 8 secondes.
-On a donc 10 000 000 / 8 = 1 250 000 cycles par secondes.
+
+
+
+Pour obtenir une trace de l'exécution on tape cette commande:
+
+./simul.x -NCYCLES 10000 -TRACE 0 > trace
+
+Le résultat se trouve dans le fichier trace.save.
 
 ### G2
 Il n'y en a pas car c'est le seul composant à demander l'accès au bus.
